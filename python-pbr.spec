@@ -1,7 +1,7 @@
 %global pypi_name pbr
 
 Name:           python-%{pypi_name}
-Version:        0.5.8
+Version:        0.5.10
 Release:        1%{?dist}
 Summary:        Python Build Reasonableness
 
@@ -48,6 +48,10 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html README.rst LICENSE
 %{python_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
 %{python_sitelib}/%{pypi_name}
+
 %changelog
+* Fri May 17 2013 Matthias Runge <mrunge@redhat.com> - 0.5.10-1
+- update to 0.5.10 (rhbz#962132)
+
 * Thu Apr 25 2013 Matthias Runge <mrunge@redhat.com> - 0.5.8-1
 - Initial package.
