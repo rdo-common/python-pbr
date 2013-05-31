@@ -20,15 +20,22 @@ BuildRequires:  python-sphinx
 # BuildRequires:  python-setuptools_git
 BuildRequires:  python-testtools
 #BuildRequires:  python-testscenarios
-#BuildRequires:  python-testresources
 # not in the repos, yet
-#BuildRequires:  python-discover
+# BuildRequires:  python-discover
 # BuildRequires:  python-coverage >= 3.6
-#BuildRequires:  python-flake8
+# BuildRequires:  python-flake8
 # BuildRequires:  python-mox
 # not in the repos, yet
-#BuildRequires:  python-testrepository
+# BuildRequires:  python-testrepository
 # BuildRequires:  python-subunit
+# BuildRequires:  python-testresources
+
+%if 0%{?rhel}==6
+BuildRequires: python-sphinx10
+%else
+BuildRequires: python-sphinx >= 1.1.3
+%endif
+
 
 %description
 PBR is a library that injects some useful and sensible default behaviors into 
@@ -50,7 +57,11 @@ rm -rf %{pypi_name}.egg-info
 %{__python} setup.py build
 
 # generate html docs 
+%if 0%{?rhel}==6
+sphinx-1.0-build doc/source html
+%else
 sphinx-build doc/source html
+%endif
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
 
@@ -70,6 +81,7 @@ rm -rf html/.{doctrees,buildinfo}
 %changelog
 * Fri May 31 2013 Matthias Runge <mrunge@redhat.com> - 0.5.11-2
 - remove requirement setuptools_git
+- fix docs build under rhel
 
 * Fri May 17 2013 Matthias Runge <mrunge@redhat.com> - 0.5.11-1
 - update to 0.5.11 (rhbz#962132)
