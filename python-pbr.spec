@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.5.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -38,6 +38,9 @@ time to make that code into a proper re-usable library.
 
 %prep
 %setup -q -n %{pypi_name}-%{version}
+
+# remove unused requirement
+sed -i '/setuptools_git/d' requirements.txt
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 
@@ -64,6 +67,9 @@ rm -rf html/.{doctrees,buildinfo}
 %{python_sitelib}/%{pypi_name}
 
 %changelog
+* Fri May 31 2013 Matthias Runge <mrunge@redhat.com> - 0.5.11-2
+- remove requirement setuptools_git
+
 * Fri May 17 2013 Matthias Runge <mrunge@redhat.com> - 0.5.11-1
 - update to 0.5.11 (rhbz#962132)
 - disable tests, as requirements can not be fulfilled right now
