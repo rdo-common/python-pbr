@@ -15,8 +15,9 @@ BuildRequires:  python2-devel
 #BuildRequires:  python-d2to1 >= 0.2.10
 BuildRequires:  python-d2to1
 BuildRequires:  python-sphinx
-Requires:       python-setuptools_git
-BuildRequires:  python-setuptools_git
+# not necessary, but listed in requirements.txt
+# Requires:       python-setuptools_git
+# BuildRequires:  python-setuptools_git
 BuildRequires:  python-testtools
 #BuildRequires:  python-testscenarios
 #BuildRequires:  python-testresources
