@@ -1,7 +1,7 @@
 %global pypi_name pbr
 
 Name:           python-%{pypi_name}
-Version:        0.5.10
+Version:        0.5.11
 Release:        1%{?dist}
 Summary:        Python Build Reasonableness
 
@@ -11,11 +11,23 @@ Source0:        http://pypi.python.org/packages/source/p/%{pypi_name}/%{pypi_nam
 BuildArch:      noarch
  
 BuildRequires:  python2-devel
+# very new required, when also using tests
+#BuildRequires:  python-d2to1 >= 0.2.10
 BuildRequires:  python-d2to1
 BuildRequires:  python-sphinx
 Requires:       python-setuptools_git
 BuildRequires:  python-setuptools_git
 BuildRequires:  python-testtools
+#BuildRequires:  python-testscenarios
+#BuildRequires:  python-testresources
+# not in the repos, yet
+#BuildRequires:  python-discover
+# BuildRequires:  python-coverage >= 3.6
+#BuildRequires:  python-flake8
+# BuildRequires:  python-mox
+# not in the repos, yet
+#BuildRequires:  python-testrepository
+# BuildRequires:  python-subunit
 
 %description
 PBR is a library that injects some useful and sensible default behaviors into 
@@ -43,7 +55,8 @@ rm -rf html/.{doctrees,buildinfo}
 %{__python} setup.py install --skip-build --root %{buildroot}
 
 %check
-%{__python} setup.py test
+# we don't have the necessary br's, yet
+#%{__python} setup.py test
 
 %files
 %doc html README.rst LICENSE
@@ -51,8 +64,9 @@ rm -rf html/.{doctrees,buildinfo}
 %{python_sitelib}/%{pypi_name}
 
 %changelog
-* Fri May 17 2013 Matthias Runge <mrunge@redhat.com> - 0.5.10-1
-- update to 0.5.10 (rhbz#962132)
+* Fri May 17 2013 Matthias Runge <mrunge@redhat.com> - 0.5.11-1
+- update to 0.5.11 (rhbz#962132)
+- disable tests, as requirements can not be fulfilled right now
 
 * Thu Apr 25 2013 Matthias Runge <mrunge@redhat.com> - 0.5.8-1
 - Initial package.
