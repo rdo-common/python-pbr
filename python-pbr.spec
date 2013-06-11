@@ -1,8 +1,8 @@
 %global pypi_name pbr
 
 Name:           python-%{pypi_name}
-Version:        0.5.11
-Release:        2%{?dist}
+Version:        0.5.14
+Release:        1%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -79,6 +79,9 @@ rm -rf html/.{doctrees,buildinfo}
 %{python_sitelib}/%{pypi_name}
 
 %changelog
+* Tue Jun 11 2013 Matthias Runge <mrunge@redhat.com> - 0.5.14-1
+- update to 0.5.14 (rhbz#971736)
+
 * Fri May 31 2013 Matthias Runge <mrunge@redhat.com> - 0.5.11-2
 - remove requirement setuptools_git
 - fix docs build under rhel
