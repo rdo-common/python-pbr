@@ -1,7 +1,7 @@
 %global pypi_name pbr
 
 Name:           python-%{pypi_name}
-Version:        0.5.16
+Version:        0.5.17
 Release:        1%{?dist}
 Summary:        Python Build Reasonableness
 
@@ -79,6 +79,9 @@ rm -rf html/.{doctrees,buildinfo}
 %{python_sitelib}/%{pypi_name}
 
 %changelog
+* Mon Jun 24 2013 Matthias Runge <mrunge@redhat.com> - 0.5.17-1
+- update to python-pbr-0.5.17 (rhbz#976026)
+
 * Wed Jun 12 2013 Matthias Runge <mrunge@redhat.com> - 0.5.16-1
 - update to 0.5.16 (rhbz#973553)
 
