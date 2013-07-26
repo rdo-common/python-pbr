@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.5.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -14,7 +14,6 @@ BuildRequires:  python2-devel
 # very new required, when also using tests
 #BuildRequires:  python-d2to1 >= 0.2.10
 BuildRequires:  python-d2to1
-BuildRequires:  python-sphinx
 # not necessary, but listed in requirements.txt
 # Requires:       python-setuptools_git
 # BuildRequires:  python-setuptools_git
@@ -79,6 +78,9 @@ rm -rf html/.{doctrees,buildinfo}
 %{python_sitelib}/%{pypi_name}
 
 %changelog
+* Fri Jul 26 2013 Matthias Runge <mrunge@redhat.com> - 0.5.19-2
+- remove one buildrequires: python-sphinx
+
 * Mon Jul 22 2013 Matthias Runge <mrunge@redhat.com> - 0.5.19-1
 - update to python-pbr-0.5.19 (rhbz#983008)
 
