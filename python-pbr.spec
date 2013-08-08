@@ -1,8 +1,8 @@
 %global pypi_name pbr
 
 Name:           python-%{pypi_name}
-Version:        0.5.19
-Release:        2%{?dist}
+Version:        0.5.21
+Release:        1%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -78,6 +78,9 @@ rm -rf html/.{doctrees,buildinfo}
 %{python_sitelib}/%{pypi_name}
 
 %changelog
+* Thu Aug 08 2013 Matthias Runge <mrunge@redhat.com> - 0.5.21-1
+- update to 0.5.21 (rhbz#990008)
+
 * Fri Jul 26 2013 Matthias Runge <mrunge@redhat.com> - 0.5.19-2
 - remove one buildrequires: python-sphinx
 
