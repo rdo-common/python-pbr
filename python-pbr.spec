@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.5.21
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -47,9 +47,10 @@ time to make that code into a proper re-usable library.
 
 %prep
 %setup -q -n %{pypi_name}-%{version}
+# Remove the requirements file so that pbr hooks don't add it
+# to distutils requiers_dist config
+rm -rf {test-,}requirements.txt
 
-# remove unused requirement
-sed -i '/setuptools_git/d' requirements.txt
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 
@@ -82,6 +83,7 @@ rm -rf html/.{doctrees,buildinfo}
 %changelog
 * Tue Aug 13 2013 Matthias Runge <mrunge@redhat.com> - 0.5.21-2
 - add requirement python-pip (rhbz#996192)
+- remove requirements.txt
 
 * Thu Aug 08 2013 Matthias Runge <mrunge@redhat.com> - 0.5.21-1
 - update to 0.5.21 (rhbz#990008)
