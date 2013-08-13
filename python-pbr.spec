@@ -9,6 +9,8 @@ License:        ASL 2.0
 URL:            http://pypi.python.org/pypi/pbr
 Source0:        http://pypi.python.org/packages/source/p/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
+
+Requires:       python-pip
  
 BuildRequires:  python2-devel
 # very new required, when also using tests
@@ -78,6 +80,9 @@ rm -rf html/.{doctrees,buildinfo}
 %{python_sitelib}/%{pypi_name}
 
 %changelog
+* Tue Aug 13 2013 Matthias Runge <mrunge@redhat.com> - 0.5.21-2
+- add requirement python-pip (rhbz#996192)
+
 * Thu Aug 08 2013 Matthias Runge <mrunge@redhat.com> - 0.5.21-1
 - update to 0.5.21 (rhbz#990008)
 
