@@ -1,8 +1,8 @@
 %global pypi_name pbr
 
 Name:           python-%{pypi_name}
-Version:        0.5.21
-Release:        2%{?dist}
+Version:        0.5.23
+Release:        1%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -81,6 +81,9 @@ rm -rf html/.{doctrees,buildinfo}
 %{python_sitelib}/%{pypi_name}
 
 %changelog
+* Fri Nov 01 2013 Matthias Runge <mrunge@redhat.com> - 0.5.23-1
+- update to 0.5.23 (rhbz#1023926)
+
 * Tue Aug 13 2013 Matthias Runge <mrunge@redhat.com> - 0.5.21-2
 - add requirement python-pip (rhbz#996192)
 - remove requirements.txt
