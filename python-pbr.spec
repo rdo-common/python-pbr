@@ -1,7 +1,7 @@
 %global pypi_name pbr
 
 Name:           python-%{pypi_name}
-Version:        0.5.23
+Version:        0.6
 Release:        1%{?dist}
 Summary:        Python Build Reasonableness
 
@@ -14,22 +14,22 @@ Requires:       python-pip
  
 BuildRequires:  python2-devel
 # very new required, when also using tests
-#BuildRequires:  python-d2to1 >= 0.2.10
-BuildRequires:  python-d2to1
+BuildRequires:  python-d2to1 >= 0.2.10
+#BuildRequires:  python-d2to1
 # not necessary, but listed in requirements.txt
 # Requires:       python-setuptools_git
 # BuildRequires:  python-setuptools_git
-BuildRequires:  python-testtools
+#BuildRequires:  python-testtools
 #BuildRequires:  python-testscenarios
-# not in the repos, yet
-# BuildRequires:  python-discover
-# BuildRequires:  python-coverage >= 3.6
-# BuildRequires:  python-flake8
-# BuildRequires:  python-mox
-# not in the repos, yet
-# BuildRequires:  python-testrepository
-# BuildRequires:  python-subunit
-# BuildRequires:  python-testresources
+# not packaged yet:
+#BuildRequires:  python-discover
+
+#BuildRequires:  python-coverage >= 3.6
+#BuildRequires:  python-flake8
+#BuildRequires:  python-mox
+#BuildRequires:  python-testrepository
+#BuildRequires:  python-subunit
+#BuildRequires:  python-testresources
 
 %if 0%{?rhel}==6
 BuildRequires: python-sphinx10
@@ -81,6 +81,9 @@ rm -rf html/.{doctrees,buildinfo}
 %{python_sitelib}/%{pypi_name}
 
 %changelog
+* Tue Feb 11 2014 Matthias Runge <mrunge@redhat.com> - 0.6.0-1
+- update to 0.6.0 (rhbz#1061124)
+
 * Fri Nov 01 2013 Matthias Runge <mrunge@redhat.com> - 0.5.23-1
 - update to 0.5.23 (rhbz#1023926)
 
