@@ -1,7 +1,13 @@
 %global pypi_name pbr
+%if 0%{?fedora} > 19
+%global do_test 1
+%endif
+
+# tests are failing currently
+%global do_test 0
 
 Name:           python-%{pypi_name}
-Version:        0.6
+Version:        0.7.0
 Release:        1%{?dist}
 Summary:        Python Build Reasonableness
 
@@ -15,21 +21,21 @@ Requires:       python-pip
 BuildRequires:  python2-devel
 # very new required, when also using tests
 BuildRequires:  python-d2to1 >= 0.2.10
-#BuildRequires:  python-d2to1
-# not necessary, but listed in requirements.txt
-# Requires:       python-setuptools_git
-# BuildRequires:  python-setuptools_git
-#BuildRequires:  python-testtools
-#BuildRequires:  python-testscenarios
-# not packaged yet:
-#BuildRequires:  python-discover
 
-#BuildRequires:  python-coverage >= 3.6
-#BuildRequires:  python-flake8
-#BuildRequires:  python-mox
-#BuildRequires:  python-testrepository
-#BuildRequires:  python-subunit
-#BuildRequires:  python-testresources
+%if 0%{?do_test} == 1
+BuildRequires:  python-testtools
+BuildRequires:  python-testscenarios
+
+# still not packaged yet:
+BuildRequires:  python-discover
+BuildRequires:  python-coverage >= 3.6
+BuildRequires:  python-flake8
+BuildRequires:  python-mock >= 1.0
+BuildRequires:  python-testrepository >= 0.0.18
+BuildRequires:  python-subunit
+BuildRequires:  python-testresources
+%endif
+
 
 %if 0%{?rhel}==6
 BuildRequires: python-sphinx10
@@ -71,9 +77,11 @@ rm -rf html/.{doctrees,buildinfo}
 %install
 %{__python} setup.py install --skip-build --root %{buildroot}
 
+%if 0%{?do_test} 
 %check
 # we don't have the necessary br's, yet
-#%{__python} setup.py test
+%{__python} setup.py test
+%endif
 
 %files
 %doc html README.rst LICENSE
@@ -81,6 +89,9 @@ rm -rf html/.{doctrees,buildinfo}
 %{python_sitelib}/%{pypi_name}
 
 %changelog
+* Mon Mar 24 2014 Matthias Runge <mrunge@redhat.com> - 0.7.0-1
+- update to 0.7.0 (rhbz#1078761)
+
 * Tue Feb 11 2014 Matthias Runge <mrunge@redhat.com> - 0.6.0-1
 - update to 0.6.0 (rhbz#1061124)
 
