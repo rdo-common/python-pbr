@@ -1,4 +1,9 @@
 %global pypi_name pbr
+
+%if 0%{?fedora}
+%global with_python3 1
+%endif
+
 %if 0%{?fedora} > 19
 %global do_test 1
 %endif
@@ -8,7 +13,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -43,6 +48,10 @@ BuildRequires: python-sphinx10
 BuildRequires: python-sphinx >= 1.1.3
 %endif
 
+%if 0%{?with_python3}
+BuildRequires:  python3-devel
+BuildRequires:  python3-d2to1
+%endif
 
 %description
 PBR is a library that injects some useful and sensible default behaviors into 
@@ -50,6 +59,14 @@ your setuptools run. It started off life as the chunks of code that were copied
 between all of the OpenStack projects. Around the time that OpenStack hit 18 
 different projects each with at least 3 active branches, it seems like a good 
 time to make that code into a proper re-usable library.
+
+%if 0%{?with_python3}
+%package -n python3-pbr
+Summary:        Python Build Reasonableness
+
+%description -n python3-pbr
+Manage dynamic plugins for Python applications
+%endif
 
 %prep
 %setup -q -n %{pypi_name}-%{version}
@@ -60,9 +77,19 @@ rm -rf {test-,}requirements.txt
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 
+%if 0%{?with_python3}
+rm -rf %{py3dir}
+cp -a . %{py3dir}
+%endif
 
 %build
 %{__python} setup.py build
+
+%if 0%{?with_python3}
+pushd %{py3dir}
+%{__python3} setup.py build
+popd
+%endif
 
 # generate html docs 
 %if 0%{?rhel}==6
@@ -77,6 +104,12 @@ rm -rf html/.{doctrees,buildinfo}
 %install
 %{__python} setup.py install --skip-build --root %{buildroot}
 
+%if 0%{?with_python3}
+pushd %{py3dir}
+%{__python3} setup.py install -O1 --skip-build --root=%{buildroot}
+popd
+%endif
+
 %if 0%{?do_test} 
 %check
 # we don't have the necessary br's, yet
@@ -88,7 +121,18 @@ rm -rf html/.{doctrees,buildinfo}
 %{python_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
 %{python_sitelib}/%{pypi_name}
 
+%if 0%{?with_python3}
+%files -n python3-pbr
+%doc html README.rst LICENSE
+%{python3_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
+%{python3_sitelib}/%{pypi_name}
+%endif
+
 %changelog
+* Tue Apr 08 2014 Matthias Runge <mrunge@redhat.com> - 0.7.0-2
+- Added python3 subpackage.
+- slight modification of Ralph Beans proposal
+
 * Mon Mar 24 2014 Matthias Runge <mrunge@redhat.com> - 0.7.0-1
 - update to 0.7.0 (rhbz#1078761)
 
