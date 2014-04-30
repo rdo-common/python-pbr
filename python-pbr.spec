@@ -12,8 +12,8 @@
 %global do_test 0
 
 Name:           python-%{pypi_name}
-Version:        0.7.0
-Release:        2%{?dist}
+Version:        0.8.0
+Release:        1%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -129,6 +129,9 @@ popd
 %endif
 
 %changelog
+* Wed Apr 30 2014 Matthias Runge <mrunge@redhat.com> - 0.8.0-1
+- update to 0.8.0 (rhbz#1078761)
+
 * Tue Apr 08 2014 Matthias Runge <mrunge@redhat.com> - 0.7.0-2
 - Added python3 subpackage.
 - slight modification of Ralph Beans proposal
