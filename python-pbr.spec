@@ -13,7 +13,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -129,6 +129,9 @@ popd
 %endif
 
 %changelog
+* Wed May 14 2014 Bohuslav Kabrda <bkabrda@redhat.com> - 0.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Python_3.4
+
 * Wed Apr 30 2014 Matthias Runge <mrunge@redhat.com> - 0.8.0-1
 - update to 0.8.0 (rhbz#1078761)
 
