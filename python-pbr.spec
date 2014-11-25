@@ -12,8 +12,8 @@
 %global do_test 0
 
 Name:           python-%{pypi_name}
-Version:        0.8.0
-Release:        3%{?dist}
+Version:        0.10.0
+Release:        1%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -129,6 +129,9 @@ popd
 %endif
 
 %changelog
+* Tue Nov 25 2014 Matthias Runge <mrunge@redhat.com> - 0.10.0-1
+- update to 0.10.0 (rhbz#1191232)
+
 * Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
