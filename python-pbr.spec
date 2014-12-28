@@ -12,7 +12,7 @@
 %global do_test 0
 
 Name:           python-%{pypi_name}
-Version:        0.10.0
+Version:        0.10.7
 Release:        1%{?dist}
 Summary:        Python Build Reasonableness
 
@@ -118,6 +118,7 @@ popd
 
 %files
 %doc html README.rst LICENSE
+%{_bindir}/pbr
 %{python_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
 %{python_sitelib}/%{pypi_name}
 
@@ -129,6 +130,9 @@ popd
 %endif
 
 %changelog
+* Mon Dec 29 2014 Alan Pevec <apevec@redhat.com> - 0.10.7-1
+- update to 0.10.7
+
 * Tue Nov 25 2014 Matthias Runge <mrunge@redhat.com> - 0.10.0-1
 - update to 0.10.0 (rhbz#1191232)
 
