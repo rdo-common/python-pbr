@@ -12,7 +12,7 @@
 %global do_test 0
 
 Name:           python-%{pypi_name}
-Version:        0.10.7
+Version:        0.10.8
 Release:        1%{?dist}
 Summary:        Python Build Reasonableness
 
@@ -102,13 +102,15 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %install
-%{__python} setup.py install --skip-build --root %{buildroot}
-
+# Must do the python3 install first because the scripts in /usr/bin are
+# overwritten with every setup.py install (and we want the python2 version
+# to be the default for now).
 %if 0%{?with_python3}
 pushd %{py3dir}
 %{__python3} setup.py install -O1 --skip-build --root=%{buildroot}
 popd
 %endif
+%{__python} setup.py install --skip-build --root %{buildroot}
 
 %if 0%{?do_test} 
 %check
@@ -130,6 +132,9 @@ popd
 %endif
 
 %changelog
+* Fri Mar 20 2015 Alan Pevec <apevec@redhat.com> - 0.10.8-1
+- update to 0.10.8
+
 * Mon Dec 29 2014 Alan Pevec <apevec@redhat.com> - 0.10.7-1
 - update to 0.10.7
 
