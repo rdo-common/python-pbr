@@ -8,35 +8,30 @@
 %global do_test 1
 %endif
 
-# tests are failing currently
-%global do_test 0
-
 Name:           python-%{pypi_name}
-Version:        0.10.8
+Version:        0.11.0
 Release:        1%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
 URL:            http://pypi.python.org/pypi/pbr
 Source0:        http://pypi.python.org/packages/source/p/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+
 BuildArch:      noarch
 
 BuildRequires:  python2-devel
-# very new required, when also using tests
-BuildRequires:  python-d2to1 >= 0.2.10
+BuildRequires:  python-d2to1
 
 %if 0%{?do_test} == 1
-BuildRequires:  python-testtools
-BuildRequires:  python-testscenarios
-
-# still not packaged yet:
-BuildRequires:  python-discover
-BuildRequires:  python-coverage >= 3.6
-BuildRequires:  python-flake8
-BuildRequires:  python-mock >= 1.0
-BuildRequires:  python-testrepository >= 0.0.18
-BuildRequires:  python-subunit
+BuildRequires:  python-coverage
+BuildRequires:  python-hacking
+BuildRequires:  python-mock
+BuildRequires:  python-testrepository
 BuildRequires:  python-testresources
+BuildRequires:  python-testscenarios
+BuildRequires:  gcc
+BuildRequires:  git
+BuildRequires:  gnupg
 %endif
 
 
@@ -68,12 +63,7 @@ Manage dynamic plugins for Python applications
 
 %prep
 %setup -q -n %{pypi_name}-%{version}
-# Remove the requirements file so that pbr hooks don't add it
-# to distutils requiers_dist config
-rm -rf {test-,}requirements.txt
-
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+rm -rf {test-,}requirements.txt pbr.egg-info/requires.txt
 
 %if 0%{?with_python3}
 rm -rf %{py3dir}
@@ -81,6 +71,7 @@ cp -a . %{py3dir}
 %endif
 
 %build
+export SKIP_PIP_INSTALL=1
 %{__python} setup.py build
 
 %if 0%{?with_python3}
@@ -109,6 +100,7 @@ pushd %{py3dir}
 popd
 %endif
 %{__python} setup.py install --skip-build --root %{buildroot}
+rm -rf %{buildroot}%{python_sitelib}/pbr/tests
 
 %if 0%{?do_test} 
 %check
@@ -119,7 +111,7 @@ popd
 %files
 %doc html README.rst LICENSE
 %{_bindir}/pbr
-%{python_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
+%{python_sitelib}/*.egg-info
 %{python_sitelib}/%{pypi_name}
 
 %if 0%{?with_python3}
@@ -130,6 +122,9 @@ popd
 %endif
 
 %changelog
+* Tue Jun 02 2015 Alan Pevec <apevec@redhat.com> - 0.11.0-1
+- update to 0.11.0
+
 * Fri Mar 20 2015 Alan Pevec <apevec@redhat.com> - 0.10.8-1
 - update to 0.10.8
 
