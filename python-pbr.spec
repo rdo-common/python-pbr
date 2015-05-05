@@ -21,8 +21,6 @@ URL:            http://pypi.python.org/pypi/pbr
 Source0:        http://pypi.python.org/packages/source/p/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
 
-Requires:       python-pip
- 
 BuildRequires:  python2-devel
 # very new required, when also using tests
 BuildRequires:  python-d2to1 >= 0.2.10
