@@ -10,7 +10,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -122,6 +122,9 @@ rm -rf %{buildroot}%{python_sitelib}/pbr/tests
 %endif
 
 %changelog
+* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.11.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
 * Tue Jun 02 2015 Alan Pevec <apevec@redhat.com> - 0.11.0-1
 - update to 0.11.0
 
