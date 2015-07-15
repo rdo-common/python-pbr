@@ -5,12 +5,13 @@
 %endif
 
 %if 0%{?fedora} > 19
-%global do_test 1
+# we don't have the necessary br's, yet
+%global do_test 0
 %endif
 
 Name:           python-%{pypi_name}
-Version:        0.11.0
-Release:        2%{?dist}
+Version:        1.3.0
+Release:        1%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -104,24 +105,28 @@ rm -rf %{buildroot}%{python_sitelib}/pbr/tests
 
 %if 0%{?do_test} 
 %check
-# we don't have the necessary br's, yet
 %{__python} setup.py test
 %endif
 
 %files
-%doc html README.rst LICENSE
+%license LICENSE
+%doc html README.rst
 %{_bindir}/pbr
 %{python_sitelib}/*.egg-info
 %{python_sitelib}/%{pypi_name}
 
 %if 0%{?with_python3}
 %files -n python3-pbr
-%doc html README.rst LICENSE
-%{python3_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
+%license LICENSE
+%doc html README.rst
+%{python3_sitelib}/*.egg-info
 %{python3_sitelib}/%{pypi_name}
 %endif
 
 %changelog
+* Wed Jul 15 2015 Alan Pevec <alan.pevec@redhat.com> 1.3.0-1
+- Update to upstream 1.3.0
+
 * Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.11.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
