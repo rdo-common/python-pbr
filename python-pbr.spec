@@ -10,7 +10,7 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        1.3.0
+Version:        1.5.0
 Release:        1%{?dist}
 Summary:        Python Build Reasonableness
 
@@ -124,6 +124,9 @@ rm -rf %{buildroot}%{python_sitelib}/pbr/tests
 %endif
 
 %changelog
+* Sat Aug 15 2015 Alan Pevec <alan.pevec@redhat.com> 1.5.0-1
+- Update to upstream 1.5.0
+
 * Wed Jul 15 2015 Alan Pevec <alan.pevec@redhat.com> 1.3.0-1
 - Update to upstream 1.3.0
 
