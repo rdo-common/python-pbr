@@ -10,8 +10,8 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        1.5.0
-Release:        2%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -122,6 +122,9 @@ rm -rf %{buildroot}%{python_sitelib}/pbr/tests
 %endif
 
 %changelog
+* Mon Aug 31 2015 Matthias Runge <mrunge@redhat.com> - 1.6.0-1
+- update to upstream 1.6.0 (rhbz#1249840)
+
 * Sat Aug 15 2015 Alan Pevec <alan.pevec@redhat.com> 1.5.0-1
 - Update to upstream 1.5.0
 
