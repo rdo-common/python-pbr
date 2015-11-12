@@ -10,8 +10,8 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        1.8.0
-Release:        2%{?dist}
+Version:        1.8.1
+Release:        1%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -122,6 +122,9 @@ rm -rf %{buildroot}%{python_sitelib}/pbr/tests
 %endif
 
 %changelog
+* Thu Nov 12 2015 Alan Pevec <alan.pevec@redhat.com> 1.8.1-1
+- Update to 1.8.1
+
 * Tue Nov 10 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Changes/python3.5
 
