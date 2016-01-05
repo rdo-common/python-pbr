@@ -11,7 +11,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.8.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -19,6 +19,22 @@ URL:            http://pypi.python.org/pypi/pbr
 Source0:        http://pypi.python.org/packages/source/p/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 
 BuildArch:      noarch
+
+
+
+BuildRequires: python-sphinx >= 1.1.3
+
+
+%description
+PBR is a library that injects some useful and sensible default behaviors into 
+your setuptools run. It started off life as the chunks of code that were copied
+between all of the OpenStack projects. Around the time that OpenStack hit 18 
+different projects each with at least 3 active branches, it seems like a good 
+time to make that code into a proper re-usable library.
+
+%package -n python2-%{pypi_name}
+Summary:        Python Build Reasonableness
+%{?python_provide:%python_provide python2-%{pypi_name}}
 
 BuildRequires:  python2-devel
 
@@ -35,28 +51,18 @@ BuildRequires:  gnupg
 %endif
 
 
-%if 0%{?rhel}==6
-BuildRequires: python-sphinx10
-%else
-BuildRequires: python-sphinx >= 1.1.3
-%endif
+%description -n python2-%{pypi_name}
+Manage dynamic plugins for Python applications
+
 
 %if 0%{?with_python3}
-BuildRequires:  python3-devel
-%endif
-
-%description
-PBR is a library that injects some useful and sensible default behaviors into 
-your setuptools run. It started off life as the chunks of code that were copied
-between all of the OpenStack projects. Around the time that OpenStack hit 18 
-different projects each with at least 3 active branches, it seems like a good 
-time to make that code into a proper re-usable library.
-
-%if 0%{?with_python3}
-%package -n python3-pbr
+%package -n python3-%{pypi_name}
 Summary:        Python Build Reasonableness
+%{?python_provide:%python_provide python3-%{pypi_name}}
 
-%description -n python3-pbr
+BuildRequires:  python3-devel
+
+%description -n python3-%{pypi_name}
 Manage dynamic plugins for Python applications
 %endif
 
@@ -79,12 +85,8 @@ pushd %{py3dir}
 popd
 %endif
 
-# generate html docs 
-%if 0%{?rhel}==6
-sphinx-1.0-build doc/source html
-%else
+# generate html docs
 sphinx-build doc/source html
-%endif
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
 
@@ -101,12 +103,12 @@ popd
 %{__python} setup.py install --skip-build --root %{buildroot}
 rm -rf %{buildroot}%{python_sitelib}/pbr/tests
 
-%if 0%{?do_test} 
+%if 0%{?do_test}
 %check
 %{__python} setup.py test
 %endif
 
-%files
+%files -n python2-%{pypi_name}
 %license LICENSE
 %doc html README.rst
 %{_bindir}/pbr
@@ -122,6 +124,10 @@ rm -rf %{buildroot}%{python_sitelib}/pbr/tests
 %endif
 
 %changelog
+* Mon Jan 4 2016 Paul Belanger <pabelanger@redhat.com> 1.8.1-3
+- Provide python2-pbr (rhbz#1282126)
+- minor spec cleanup
+
 * Thu Nov 12 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.8.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Changes/python3.5
 
