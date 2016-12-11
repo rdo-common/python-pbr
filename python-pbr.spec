@@ -11,7 +11,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -124,6 +124,9 @@ rm -rf %{buildroot}%{python_sitelib}/pbr/tests
 %endif
 
 %changelog
+* Fri Dec 09 2016 Charalampos Stratakis <cstratak@redhat.com> - 1.10.0-2
+- Rebuild for Python 3.6
+
 * Wed Oct 12 2016 Alan Pevec <apevec AT redhat.com> - 1.10.0-1
 - Update to 1.10.0
 
