@@ -1,0 +1,52 @@
+From ced8cb601dcc6613c295000060c96b82b389e119 Mon Sep 17 00:00:00 2001
+From: Dirk Mueller <dirk@dmllr.de>
+Date: Wed, 21 Dec 2016 23:29:52 +0100
+Subject: [PATCH] Don't raise exception on missing man pages
+
+The revert in Ia6cfbfe5b10a5b714fbb9f21ca61380aaf231638 actually
+broke Sphinx 1.3.x support again. Try to fix it for real this
+time by avoiding an exception on missing man_pages.
+
+NOTE(dmllr): don't change dict while iterating over it, hopefully
+this fixes the gating failure with python 3.5.x
+
+Change-Id: I52d45fa0a0d42de690d3a492068f7bb03483a224
+Related-Bug: 1379998
+(cherry picked from commit 9fd7aa2cc7fe50f68bd9c86c3db7a8f7ae710c05)
+---
+ pbr/builddoc.py | 3 ++-
+ pbr/util.py     | 4 +++-
+ 2 files changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/pbr/builddoc.py b/pbr/builddoc.py
+index b0da309..8061fbf 100644
+--- a/pbr/builddoc.py
++++ b/pbr/builddoc.py
+@@ -138,7 +138,8 @@ class LocalBuildDoc(setup_command.BuildDoc):
+             sphinx_config.init_values(warnings.warn)
+         else:
+             sphinx_config.init_values()
+-        if self.builder == 'man' and len(sphinx_config.man_pages) == 0:
++        if self.builder == 'man' and len(
++                getattr(sphinx_config, 'man_pages', '')) == 0:
+             return
+         app = application.Sphinx(
+             self.source_dir, self.config_dir,
+diff --git a/pbr/util.py b/pbr/util.py
+index daad138..cb50a90 100644
+--- a/pbr/util.py
++++ b/pbr/util.py
+@@ -211,7 +211,9 @@ def cfg_to_args(path='setup.cfg', script_args=()):
+     parser.read(path)
+     config = {}
+     for section in parser.sections():
+-        config[section] = dict(parser.items(section))
++        config[section] = dict()
++        for k, value in parser.items(section):
++            config[section][k.replace('-', '_')] = value
+ 
+     # Run setup_hooks, if configured
+     setup_hooks = has_get_option(config, 'global', 'setup_hooks')
+-- 
+2.9.3
+
