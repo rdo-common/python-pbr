@@ -10,22 +10,20 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        1.10.0
-Release:        4%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
 URL:            http://pypi.python.org/pypi/pbr
 Source0:        https://pypi.io/packages/source/p/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 
-# not in a released version yet https://review.openstack.org/413795
-Patch0001:      0001-Don-t-raise-exception-on-missing-man-pages.patch
-
 BuildArch:      noarch
 
 
 
 BuildRequires: python-sphinx >= 1.1.3
+BuildRequires: python-oslo-sphinx
 
 
 %description
@@ -71,7 +69,6 @@ Manage dynamic plugins for Python applications
 
 %prep
 %setup -q -n %{pypi_name}-%{version}
-%patch0001 -p1
 
 rm -rf {test-,}requirements.txt pbr.egg-info/requires.txt
 
@@ -129,6 +126,10 @@ rm -rf %{buildroot}%{python_sitelib}/pbr/tests
 %endif
 
 %changelog
+* Fri Mar  3 2017 Haïkel Guémar <hguemar@fedoraproject.org> - 2.0.0-1
+- Upstream 2.0.0
+- Drop upstreamed patch
+
 * Sat Feb 18 2017 Alan Pevec <apevec AT redhat.com> - 1.10.0-4
 - Fix newer Sphinx and Python 3.5 support LP#1379998
 
