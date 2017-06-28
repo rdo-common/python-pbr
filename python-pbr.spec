@@ -10,7 +10,7 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        2.0.0
+Version:        3.1.1
 Release:        1%{?dist}
 Summary:        Python Build Reasonableness
 
@@ -126,6 +126,9 @@ rm -rf %{buildroot}%{python_sitelib}/pbr/tests
 %endif
 
 %changelog
+* Wed Jun 28 2017 Alan Pevec <alan.pevec@redhat.com> 3.1.1-1
+- Update to 3.1.1
+
 * Fri Mar  3 2017 Haïkel Guémar <hguemar@fedoraproject.org> - 2.0.0-1
 - Upstream 2.0.0
 - Drop upstreamed patch
