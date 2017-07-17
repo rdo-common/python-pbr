@@ -11,7 +11,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -100,6 +100,8 @@ rm -rf html/.{doctrees,buildinfo}
 %if 0%{?with_python3}
 pushd %{py3dir}
 %{__python3} setup.py install -O1 --skip-build --root=%{buildroot}
+rm -rf %{buildroot}%{python3_sitelib}/pbr/tests
+mv %{buildroot}%{_bindir}/pbr %{buildroot}%{_bindir}/pbr-3
 popd
 %endif
 %{__python} setup.py install --skip-build --root %{buildroot}
@@ -121,11 +123,15 @@ rm -rf %{buildroot}%{python_sitelib}/pbr/tests
 %files -n python3-pbr
 %license LICENSE
 %doc html README.rst
+%{_bindir}/pbr-3
 %{python3_sitelib}/*.egg-info
 %{python3_sitelib}/%{pypi_name}
 %endif
 
 %changelog
+* Mon Jul 17 2017 Jan Beran <jberan@redhat.com> 3.1.1-2
+- Fix of missing Python 3 version of executables in python3-pbr subpackage
+
 * Wed Jun 28 2017 Alan Pevec <alan.pevec@redhat.com> 3.1.1-1
 - Update to 3.1.1
 
