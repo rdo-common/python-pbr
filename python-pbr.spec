@@ -1,17 +1,13 @@
 %global pypi_name pbr
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} > 7
 %global with_python3 1
-%endif
-
-%if 0%{?fedora} > 19
-# we don't have the necessary br's, yet
 %global do_test 0
 %endif
 
 Name:           python-%{pypi_name}
 Version:        3.1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -129,6 +125,9 @@ rm -rf %{buildroot}%{python_sitelib}/pbr/tests
 %endif
 
 %changelog
+* Fri Sep 29 2017 Troy Dawson <tdawson@redhat.com> - 3.1.1-4
+- Cleanup spec file conditionals
+
 * Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
