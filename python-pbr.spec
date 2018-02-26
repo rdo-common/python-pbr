@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -75,7 +75,7 @@ cp -a . %{py3dir}
 
 %build
 export SKIP_PIP_INSTALL=1
-%{__python} setup.py build
+%{__python2} setup.py build
 
 %if 0%{?with_python3}
 pushd %{py3dir}
@@ -100,12 +100,12 @@ rm -rf %{buildroot}%{python3_sitelib}/pbr/tests
 mv %{buildroot}%{_bindir}/pbr %{buildroot}%{_bindir}/pbr-3
 popd
 %endif
-%{__python} setup.py install --skip-build --root %{buildroot}
+%{__python2} setup.py install --skip-build --root %{buildroot}
 rm -rf %{buildroot}%{python_sitelib}/pbr/tests
 
 %if 0%{?do_test}
 %check
-%{__python} setup.py test
+%{__python2} setup.py test
 %endif
 
 %files -n python2-%{pypi_name}
@@ -125,6 +125,9 @@ rm -rf %{buildroot}%{python_sitelib}/pbr/tests
 %endif
 
 %changelog
+* Thu Feb 15 2018 Tomas Orsava <torsava@redhat.com> - 3.1.1-6
+- Switch %%python macro to %%python2
+
 * Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
