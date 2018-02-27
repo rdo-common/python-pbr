@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.1.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -18,8 +18,8 @@ BuildArch:      noarch
 
 
 
-BuildRequires: python-sphinx >= 1.1.3
-BuildRequires: python-oslo-sphinx
+BuildRequires: python2-sphinx >= 1.1.3
+BuildRequires: python2-oslo-sphinx
 
 
 %description
@@ -36,12 +36,12 @@ Summary:        Python Build Reasonableness
 BuildRequires:  python2-devel
 
 %if 0%{?do_test} == 1
-BuildRequires:  python-coverage
-BuildRequires:  python-hacking
-BuildRequires:  python-mock
-BuildRequires:  python-testrepository
-BuildRequires:  python-testresources
-BuildRequires:  python-testscenarios
+BuildRequires:  python2-coverage
+BuildRequires:  python2-hacking
+BuildRequires:  python2-mock
+BuildRequires:  python2-testrepository
+BuildRequires:  python2-testresources
+BuildRequires:  python2-testscenarios
 BuildRequires:  gcc
 BuildRequires:  git
 BuildRequires:  gnupg
@@ -125,6 +125,10 @@ rm -rf %{buildroot}%{python_sitelib}/pbr/tests
 %endif
 
 %changelog
+* Tue Feb 27 2018 Iryna Shcherbina <ishcherb@redhat.com> - 3.1.1-7
+- Update Python 2 dependency declarations to new packaging standards
+  (See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3)
+
 * Thu Feb 15 2018 Tomas Orsava <torsava@redhat.com> - 3.1.1-6
 - Switch %%python macro to %%python2
 
