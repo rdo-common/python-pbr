@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.1.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -125,6 +125,9 @@ rm -rf %{buildroot}%{python_sitelib}/pbr/tests
 %endif
 
 %changelog
+* Wed Jun 13 2018 Miro Hrončok <mhroncok@redhat.com> - 3.1.1-8
+- Rebuilt for Python 3.7
+
 * Tue Feb 27 2018 Iryna Shcherbina <ishcherb@redhat.com> - 3.1.1-7
 - Update Python 2 dependency declarations to new packaging standards
   (See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3)
