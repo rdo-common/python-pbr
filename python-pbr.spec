@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.1.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -125,6 +125,9 @@ rm -rf %{buildroot}%{python_sitelib}/pbr/tests
 %endif
 
 %changelog
+* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
 * Wed Jun 13 2018 Miro Hrončok <mhroncok@redhat.com> - 3.1.1-8
 - Rebuilt for Python 3.7
 
