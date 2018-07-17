@@ -6,8 +6,8 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        3.1.1
-Release:        9%{?dist}
+Version:        4.1.0
+Release:        1%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -23,10 +23,10 @@ BuildRequires: python2-oslo-sphinx
 
 
 %description
-PBR is a library that injects some useful and sensible default behaviors into 
+PBR is a library that injects some useful and sensible default behaviors into
 your setuptools run. It started off life as the chunks of code that were copied
-between all of the OpenStack projects. Around the time that OpenStack hit 18 
-different projects each with at least 3 active branches, it seems like a good 
+between all of the OpenStack projects. Around the time that OpenStack hit 18
+different projects each with at least 3 active branches, it seems like a good
 time to make that code into a proper re-usable library.
 
 %package -n python2-%{pypi_name}
@@ -68,19 +68,13 @@ Manage dynamic plugins for Python applications
 
 rm -rf {test-,}requirements.txt pbr.egg-info/requires.txt
 
-%if 0%{?with_python3}
-rm -rf %{py3dir}
-cp -a . %{py3dir}
-%endif
 
 %build
 export SKIP_PIP_INSTALL=1
-%{__python2} setup.py build
+%py2_build
 
 %if 0%{?with_python3}
-pushd %{py3dir}
-%{__python3} setup.py build
-popd
+%py3_build
 %endif
 
 # generate html docs
@@ -94,14 +88,13 @@ rm -rf html/.{doctrees,buildinfo}
 # overwritten with every setup.py install (and we want the python2 version
 # to be the default for now).
 %if 0%{?with_python3}
-pushd %{py3dir}
-%{__python3} setup.py install -O1 --skip-build --root=%{buildroot}
+%py3_install
 rm -rf %{buildroot}%{python3_sitelib}/pbr/tests
 mv %{buildroot}%{_bindir}/pbr %{buildroot}%{_bindir}/pbr-3
-popd
 %endif
-%{__python2} setup.py install --skip-build --root %{buildroot}
-rm -rf %{buildroot}%{python_sitelib}/pbr/tests
+
+%py2_install
+rm -rf %{buildroot}%{python2_sitelib}/pbr/tests
 
 %if 0%{?do_test}
 %check
@@ -112,8 +105,8 @@ rm -rf %{buildroot}%{python_sitelib}/pbr/tests
 %license LICENSE
 %doc html README.rst
 %{_bindir}/pbr
-%{python_sitelib}/*.egg-info
-%{python_sitelib}/%{pypi_name}
+%{python2_sitelib}/*.egg-info
+%{python2_sitelib}/%{pypi_name}
 
 %if 0%{?with_python3}
 %files -n python3-pbr
@@ -125,6 +118,10 @@ rm -rf %{buildroot}%{python_sitelib}/pbr/tests
 %endif
 
 %changelog
+* Tue Jul 17 2018 Matthias Runge <mrunge@redhat.com> - 4.1.0-1
+- update to 4.1.0 (rhbz#1561252)
+- modernize spec
+
 * Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
