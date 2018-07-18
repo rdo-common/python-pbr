@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -34,7 +34,7 @@ Summary:        Python Build Reasonableness
 %{?python_provide:%python_provide python2-%{pypi_name}}
 
 BuildRequires:  python2-devel
-
+BuildRequires:  python2-setuptools
 %if 0%{?do_test} == 1
 BuildRequires:  python2-coverage
 BuildRequires:  python2-hacking
@@ -46,6 +46,7 @@ BuildRequires:  gcc
 BuildRequires:  git
 BuildRequires:  gnupg
 %endif
+Requires:       python2-setuptools
 
 
 %description -n python2-%{pypi_name}
@@ -58,6 +59,8 @@ Summary:        Python Build Reasonableness
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
+Requires:       python3-setuptools
 
 %description -n python3-%{pypi_name}
 Manage dynamic plugins for Python applications
@@ -118,6 +121,9 @@ rm -rf %{buildroot}%{python2_sitelib}/pbr/tests
 %endif
 
 %changelog
+* Wed Jul 18 2018 Haïkel Guémar  <hguemar@fedoraproject.org> - 4.1.0-2
+- Add dependency to setuptools (RHBZ#1601767)
+
 * Tue Jul 17 2018 Matthias Runge <mrunge@redhat.com> - 4.1.0-1
 - update to 4.1.0 (rhbz#1561252)
 - modernize spec
