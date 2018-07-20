@@ -6,8 +6,8 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        4.1.0
-Release:        2%{?dist}
+Version:        4.1.1
+Release:        1%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -121,6 +121,9 @@ rm -rf %{buildroot}%{python2_sitelib}/pbr/tests
 %endif
 
 %changelog
+* Fri Jul 20 2018 Matthias Runge <mrunge@redhat.com> - 4.1.1-1
+- rebase to 4.1.1 (rhbz#1605192)
+
 * Wed Jul 18 2018 Haïkel Guémar  <hguemar@fedoraproject.org> - 4.1.0-2
 - Add dependency to setuptools (RHBZ#1601767)
 
