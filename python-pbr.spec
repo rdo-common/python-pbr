@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -47,7 +47,7 @@ BuildRequires:  git
 BuildRequires:  gnupg
 %endif
 Requires:       python2-setuptools
-
+Requires:       git-core
 
 %description -n python2-%{pypi_name}
 Manage dynamic plugins for Python applications
@@ -61,6 +61,7 @@ Summary:        Python Build Reasonableness
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 Requires:       python3-setuptools
+Requires:       git-core
 
 %description -n python3-%{pypi_name}
 Manage dynamic plugins for Python applications
@@ -121,6 +122,9 @@ rm -rf %{buildroot}%{python2_sitelib}/pbr/tests
 %endif
 
 %changelog
+* Wed Aug  8 2018 Haïkel Guémar <hguemar@fedoraproject.org> - 4.1.1-2
+- Add runtime requirement to git-core
+
 * Fri Jul 20 2018 Matthias Runge <mrunge@redhat.com> - 4.1.1-1
 - rebase to 4.1.1 (rhbz#1605192)
 
