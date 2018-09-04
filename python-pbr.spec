@@ -6,8 +6,8 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        4.1.1
-Release:        2%{?dist}
+Version:        4.2.0
+Release:        1%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -122,6 +122,9 @@ rm -rf %{buildroot}%{python2_sitelib}/pbr/tests
 %endif
 
 %changelog
+* Tue Sep 04 2018 Matthias Runge <mrunge@redhat.com> - 4.2.0-1
+- update to 4.2.0 (rhbz#1605192)
+
 * Wed Aug  8 2018 Haïkel Guémar <hguemar@fedoraproject.org> - 4.1.1-2
 - Add runtime requirement to git-core
 
