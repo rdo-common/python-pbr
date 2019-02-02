@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -122,6 +122,9 @@ rm -rf %{buildroot}%{python2_sitelib}/pbr/tests
 %endif
 
 %changelog
+* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
 * Tue Sep 04 2018 Matthias Runge <mrunge@redhat.com> - 4.2.0-1
 - update to 4.2.0 (rhbz#1605192)
 
