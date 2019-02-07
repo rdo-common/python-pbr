@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        5.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -19,7 +19,7 @@ BuildArch:      noarch
 
 
 BuildRequires: python2-sphinx >= 1.1.3
-BuildRequires: python2-oslo-sphinx
+BuildRequires: python2-openstackdocstheme
 
 
 %description
@@ -122,6 +122,9 @@ rm -rf %{buildroot}%{python2_sitelib}/pbr/tests
 %endif
 
 %changelog
+* Thu Feb 07 2019 Javier Peña <jpena@redhat.com> - 5.1.2-2
+- Fix doc requirements
+
 * Thu Feb 07 2019 Javier Peña <jpena@redhat.com> - 5.1.2-1
 - Update to 5.1.2 (rhbz#1671081)
 
