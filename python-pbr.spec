@@ -1,5 +1,7 @@
 %global pypi_name pbr
 
+%bcond_with bootstrap
+
 %if 0%{?fedora} || 0%{?rhel} > 7
 %global with_python3 1
 %global do_test 0
@@ -19,7 +21,10 @@ BuildArch:      noarch
 
 
 BuildRequires: python2-sphinx >= 1.1.3
+
+%if ! %{with bootstrap}
 BuildRequires: python2-openstackdocstheme
+%endif
 
 
 %description
