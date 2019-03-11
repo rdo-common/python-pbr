@@ -3,7 +3,6 @@
 %bcond_with bootstrap
 
 %if 0%{?fedora} || 0%{?rhel} > 7
-%global with_python3 1
 %global do_test 0
 %endif
 
@@ -18,12 +17,9 @@ Source0:        https://pypi.io/packages/source/p/%{pypi_name}/%{pypi_name}-%{ve
 
 BuildArch:      noarch
 
-
-
-BuildRequires: python2-sphinx >= 1.1.3
-
-%if ! %{with bootstrap}
-BuildRequires: python2-openstackdocstheme
+%if %{without bootstrap}
+BuildRequires: python3-sphinx >= 1.1.3
+BuildRequires: python3-openstackdocstheme
 %endif
 
 
@@ -58,7 +54,6 @@ Requires:       git-core
 Manage dynamic plugins for Python applications
 
 
-%if 0%{?with_python3}
 %package -n python3-%{pypi_name}
 Summary:        Python Build Reasonableness
 %{?python_provide:%python_provide python3-%{pypi_name}}
@@ -70,7 +65,6 @@ Requires:       git-core
 
 %description -n python3-%{pypi_name}
 Manage dynamic plugins for Python applications
-%endif
 
 %prep
 %setup -q -n %{pypi_name}-%{version}
@@ -81,26 +75,23 @@ rm -rf {test-,}requirements.txt pbr.egg-info/requires.txt
 %build
 export SKIP_PIP_INSTALL=1
 %py2_build
-
-%if 0%{?with_python3}
 %py3_build
-%endif
 
+%if %{without bootstrap}
 # generate html docs
 sphinx-build doc/source html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
+%endif
 
 
 %install
 # Must do the python3 install first because the scripts in /usr/bin are
 # overwritten with every setup.py install (and we want the python2 version
 # to be the default for now).
-%if 0%{?with_python3}
 %py3_install
 rm -rf %{buildroot}%{python3_sitelib}/pbr/tests
 mv %{buildroot}%{_bindir}/pbr %{buildroot}%{_bindir}/pbr-3
-%endif
 
 %py2_install
 rm -rf %{buildroot}%{python2_sitelib}/pbr/tests
@@ -112,19 +103,23 @@ rm -rf %{buildroot}%{python2_sitelib}/pbr/tests
 
 %files -n python2-%{pypi_name}
 %license LICENSE
+%doc README.rst
+%if %{without bootstrap}
 %doc html README.rst
+%endif
 %{_bindir}/pbr
 %{python2_sitelib}/*.egg-info
 %{python2_sitelib}/%{pypi_name}
 
-%if 0%{?with_python3}
 %files -n python3-pbr
 %license LICENSE
+%doc README.rst
+%if %{without bootstrap}
 %doc html README.rst
+%endif
 %{_bindir}/pbr-3
 %{python3_sitelib}/*.egg-info
 %{python3_sitelib}/%{pypi_name}
-%endif
 
 %changelog
 * Thu Feb 07 2019 Javier Peña <jpena@redhat.com> - 5.1.2-2
