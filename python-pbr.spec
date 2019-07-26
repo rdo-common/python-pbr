@@ -8,7 +8,7 @@
 
 Name:           python-%{pypi_name}
 Version:        5.1.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -122,6 +122,9 @@ rm -rf %{buildroot}%{python2_sitelib}/pbr/tests
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
 * Mon Jun 24 2019 Yatin Karel <ykarel@redhat.com> - 5.1.2-3
 - Fix FTBFS: No more python2-openstackdocstheme
 
