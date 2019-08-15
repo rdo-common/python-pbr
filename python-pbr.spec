@@ -9,7 +9,7 @@
 
 Name:           python-%{pypi_name}
 Version:        5.1.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -123,7 +123,7 @@ rm -rf %{buildroot}%{python2_sitelib}/pbr/tests
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
-* Wed Aug 14 2019 Miro Hrončok <mhroncok@redhat.com> - 5.1.2-5
+* Thu Aug 15 2019 Miro Hrončok <mhroncok@redhat.com> - 5.1.2-6
 - Bootstrap for Python 3.8
 
 * Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-4
