@@ -1,4 +1,3 @@
-%global _with_bootstrap 1
 %global pypi_name pbr
 
 %bcond_with bootstrap
@@ -9,7 +8,7 @@
 
 Name:           python-%{pypi_name}
 Version:        5.1.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -123,6 +122,9 @@ rm -rf %{buildroot}%{python2_sitelib}/pbr/tests
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Sat Aug 17 2019 Miro Hrončok <mhroncok@redhat.com> - 5.1.2-7
+- Rebuilt for Python 3.8
+
 * Thu Aug 15 2019 Miro Hrončok <mhroncok@redhat.com> - 5.1.2-6
 - Bootstrap for Python 3.8
 
