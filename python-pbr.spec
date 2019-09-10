@@ -7,8 +7,8 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        5.1.2
-Release:        7%{?dist}
+Version:        5.4.3
+Release:        1%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -17,9 +17,11 @@ Source0:        https://pypi.io/packages/source/p/%{pypi_name}/%{pypi_name}-%{ve
 
 BuildArch:      noarch
 
+BuildRequires:  git
 %if %{without bootstrap}
 BuildRequires: python3-sphinx >= 1.1.3
 BuildRequires: python3-openstackdocstheme
+BuildRequires: python3-sphinxcontrib-apidoc
 %endif
 
 
@@ -44,7 +46,6 @@ BuildRequires:  python2-testrepository
 BuildRequires:  python2-testresources
 BuildRequires:  python2-testscenarios
 BuildRequires:  gcc
-BuildRequires:  git
 BuildRequires:  gnupg
 %endif
 Requires:       python2-setuptools
@@ -67,7 +68,7 @@ Requires:       git-core
 Manage dynamic plugins for Python applications
 
 %prep
-%setup -q -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -S git
 
 rm -rf {test-,}requirements.txt pbr.egg-info/requires.txt
 
@@ -122,6 +123,9 @@ rm -rf %{buildroot}%{python2_sitelib}/pbr/tests
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Tue Sep 10 2019 Yatin Karel <ykarel@redhat.com> - 5.4.3-1
+- Update to 5.4.3
+
 * Sat Aug 17 2019 Miro Hrončok <mhroncok@redhat.com> - 5.1.2-7
 - Rebuilt for Python 3.8
 
