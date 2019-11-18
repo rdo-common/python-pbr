@@ -8,7 +8,7 @@
 
 Name:           python-%{pypi_name}
 Version:        5.4.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -32,37 +32,27 @@ between all of the OpenStack projects. Around the time that OpenStack hit 18
 different projects each with at least 3 active branches, it seems like a good
 time to make that code into a proper re-usable library.
 
-%package -n python2-%{pypi_name}
-Summary:        Python Build Reasonableness
-%{?python_provide:%python_provide python2-%{pypi_name}}
-
-BuildRequires:  python2-devel
-BuildRequires:  python2-setuptools
-%if 0%{?do_test} == 1
-BuildRequires:  python2-coverage
-BuildRequires:  python2-hacking
-BuildRequires:  python2-mock
-BuildRequires:  python2-testrepository
-BuildRequires:  python2-testresources
-BuildRequires:  python2-testscenarios
-BuildRequires:  gcc
-BuildRequires:  gnupg
-%endif
-Requires:       python2-setuptools
-Requires:       git-core
-
-%description -n python2-%{pypi_name}
-Manage dynamic plugins for Python applications
-
-
 %package -n python3-%{pypi_name}
 Summary:        Python Build Reasonableness
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+%if 0%{?do_test} == 1
+BuildRequires:  python3-coverage
+BuildRequires:  python3-hacking
+BuildRequires:  python3-mock
+BuildRequires:  python3-testrepository
+BuildRequires:  python3-testresources
+BuildRequires:  python3-testscenarios
+BuildRequires:  gcc
+BuildRequires:  gnupg
+%endif
 Requires:       python3-setuptools
 Requires:       git-core
+
+# /usr/bin/pbr moved from:
+Conflicts:      python2-%{pypi_name} < 5.4.3-2
 
 %description -n python3-%{pypi_name}
 Manage dynamic plugins for Python applications
@@ -75,7 +65,6 @@ rm -rf {test-,}requirements.txt pbr.egg-info/requires.txt
 
 %build
 export SKIP_PIP_INSTALL=1
-%py2_build
 %py3_build
 
 %if %{without bootstrap}
@@ -87,30 +76,16 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %install
-# Must do the python3 install first because the scripts in /usr/bin are
-# overwritten with every setup.py install (and we want the python2 version
-# to be the default for now).
 %py3_install
 rm -rf %{buildroot}%{python3_sitelib}/pbr/tests
 mv %{buildroot}%{_bindir}/pbr %{buildroot}%{_bindir}/pbr-3
+ln -s ./pbr-3 %{buildroot}%{_bindir}/pbr
 
-%py2_install
-rm -rf %{buildroot}%{python2_sitelib}/pbr/tests
 
 %if 0%{?do_test}
 %check
-%{__python2} setup.py test
+%{__python3} setup.py test
 %endif
-
-%files -n python2-%{pypi_name}
-%license LICENSE
-%doc README.rst
-%if %{without bootstrap}
-%doc html README.rst
-%endif
-%{_bindir}/pbr
-%{python2_sitelib}/*.egg-info
-%{python2_sitelib}/%{pypi_name}
 
 %files -n python3-pbr
 %license LICENSE
@@ -118,11 +93,16 @@ rm -rf %{buildroot}%{python2_sitelib}/pbr/tests
 %if %{without bootstrap}
 %doc html README.rst
 %endif
+%{_bindir}/pbr
 %{_bindir}/pbr-3
-%{python3_sitelib}/*.egg-info
-%{python3_sitelib}/%{pypi_name}
+%{python3_sitelib}/*.egg-info/
+%{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Mon Nov 18 2019 Miro Hrončok <mhroncok@redhat.com> - 5.4.3-2
+- Subpackage python2-pbr has been removed
+  See https://fedoraproject.org/wiki/Changes/Mass_Python_2_Package_Removal
+
 * Tue Sep 10 2019 Yatin Karel <ykarel@redhat.com> - 5.4.3-1
 - Update to 5.4.3
 
